@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康管理業務のDX化｜どこでもクリニック</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+/* ==========================
+   CSS Reset & Base Styles
+   ========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    background-color: #fff;
+    padding-top: 80px;
+}
+
+/* ==========================
+   Header
+   ========================== */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 20px 0;
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo a {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #2d9f6c;
+    text-decoration: none;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.header-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.header-link:hover {
+    color: #2d9f6c;
+}
+
+.header-cta-btn {
+    background: #2d9f6c;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.header-cta-btn:hover {
+    background: #27885e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(45, 159, 108, 0.3);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/* ==========================
+   Layout
+   ========================== */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+/* ==========================
+   Typography
+   ========================== */
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1.4;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #1a1a1a;
+}
+
+.subsection-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1a1a1a;
+}
+
+.section-lead {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+/* ==========================
+   Buttons
+   ========================== */
+
+.btn {
+    display: inline-block;
+    padding: 18px 40px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: #2d9f6c;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(45, 159, 108, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(45, 159, 108, 0.4);
+    background: #27885e;
+}
+
+.btn-secondary {
+    background: #fff;
+    color: #2d9f6c;
+    border: 2px solid #2d9f6c;
+}
+
+.btn-secondary:hover {
+    background: #2d9f6c;
+    color: #fff;
+}
+
+.btn-large {
+    padding: 22px 50px;
+    font-size: 1.25rem;
+}
+
+.btn-xlarge {
+    padding: 26px 60px;
+    font-size: 1.375rem;
+}
+
+.btn-white-final {
+    background: #fff;
+    color: #2d9f6c;
+    border: 3px solid #fff;
+}
+
+.btn-white-final:hover {
+    background: #f0f0f0;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================
+   FV（ファーストビュー）
+   ========================== */
+
+.fv {
+    background: #2d9f6c;
+    color: #fff;
+    padding: 100px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.fv .container {
+    max-width: 1400px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.fv-content {
+    z-index: 2;
+}
+
+.fv-label {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+}
+
+.fv-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 30px;
+}
+
+.fv-title-main {
+    display: block;
+}
+
+.fv-points {
+    list-style: none;
+    margin: 30px 0;
+    padding: 0;
+}
+
+.fv-points li {
+    font-size: 1.125rem;
+    line-height: 2;
+    padding-left: 30px;
+    position: relative;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+}
+
+.fv-points li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+.fv-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    opacity: 0.95;
+}
+
+.fv-subtitle strong {
+    font-weight: 700;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.fv-cta {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+/* ==========================
+   フォーム
+   ========================== */
+
+.fv-form {
+    z-index: 1;
+}
+
+.form-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.form-title {
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-subtitle {
+    font-size: 0.9375rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.required {
+    display: inline-block;
+    background: #d32f2f;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 6px;
+    font-weight: 700;
+}
+
+.optional {
+    display: inline-block;
+    background: #999;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 6px;
+    font-weight: 700;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #2d9f6c;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    color: #333;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    accent-color: #2d9f6c;
+}
+
+.checkbox-label span {
+    user-select: none;
+}
+
+.form-submit {
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.form-submit:hover {
+    transform: translateY(-2px);
+}
+
+.cta-note {
+    font-size: 0.875rem;
+    margin-top: 12px;
+    opacity: 0.9;
+}
+
+.fv-image {
+    z-index: 1;
+}
+
+.fv-image-placeholder {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 100px 40px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.125rem;
+    line-height: 1.8;
+}
+
+/* ==========================
+   問題提起
+   ========================== */
+
+.section-problem {
+    background: #f8f9fa;
+}
+
+.problem-list {
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
+.problem-item {
+    background: #fff;
+    padding: 20px 30px;
+    margin-bottom: 15px;
+    border-left: 5px solid #2d9f6c;
+    font-size: 1.125rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.problem-item::before {
+    content: '□';
+    margin-right: 12px;
+    color: #2d9f6c;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.problem-conclusion {
+    text-align: center;
+    font-size: 1.375rem;
+    line-height: 1.8;
+    color: #333;
+    margin-top: 40px;
+}
+
+.problem-conclusion strong {
+    font-weight: 700;
+    color: #2d9f6c;
+    font-size: 1.5rem;
+}
+
+/* ==========================
+   解決策（DX+BPO）
+   ========================== */
+
+.section-solution {
+    background: #fff;
+}
+
+.comparison-table {
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+.comparison-row {
+    display: grid;
+    grid-template-columns: 150px 200px 50px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 25px 30px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.comparison-row:hover {
+    background: #e8e9ea;
+    transform: translateX(5px);
+}
+
+.comparison-label {
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: #1a1a1a;
+}
+
+.comparison-before {
+    background: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1rem;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.comparison-arrow {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d9f6c;
+}
+
+.comparison-after {
+    background: #2d9f6c;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.solution-conclusion {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d9f6c;
+    margin: 50px 0 40px;
+}
+
+.solution-image {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+.solution-image-label {
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 40px 0 20px;
+}
+
+.features-screenshot {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================
+   DX機能
+   ========================== */
+
+.section-dx {
+    background: #2d9f6c;
+    color: #fff;
+}
+
+.section-dx .section-title,
+.section-dx .subsection-title {
+    color: #fff;
+}
+
+.section-dx .section-lead {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.dx-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin: 50px 0;
+}
+
+.dx-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.dx-card-number {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    opacity: 0.3;
+}
+
+.dx-card-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.dx-card-desc {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.dx-conclusion {
+    text-align: center;
+    font-size: 1.375rem;
+    line-height: 1.8;
+    margin: 40px 0;
+}
+
+.section-cta {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* ==========================
+   担当者の課題
+   ========================== */
+
+.section-pain {
+    background: #f8f9fa;
+}
+
+.pain-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.pain-intro {
+    font-size: 1.125rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.pain-list {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.pain-list li {
+    font-size: 1.125rem;
+    line-height: 2;
+    padding-left: 30px;
+    position: relative;
+}
+
+.pain-list li::before {
+    content: '•';
+    position: absolute;
+    left: 10px;
+    color: #2d9f6c;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.pain-emphasis {
+    font-size: 1.375rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 30px 0;
+    color: #d32f2f;
+}
+
+.pain-text {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    text-align: center;
+    margin: 20px 0;
+    color: #555;
+}
+
+.pain-quote {
+    background: #2d9f6c;
+    color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    margin: 40px 0;
+}
+
+.pain-quote p {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+.pain-conclusion {
+    font-size: 1.125rem;
+    text-align: center;
+    color: #555;
+}
+
+/* ==========================
+   利用シーン
+   ========================== */
+
+.section-scenes {
+    background: #fff;
+}
+
+.scene-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.scene-card {
+    background: #f8f9fa;
+    padding: 40px 30px;
+    border-radius: 20px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scene-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.scene-number {
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    background: #2d9f6c;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.scene-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: #1a1a1a;
+}
+
+.scene-service-name {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.scene-flow {
+    margin: 20px 0;
+}
+
+.scene-step {
+    font-size: 1rem;
+    line-height: 1.8;
+    padding: 8px 0;
+    color: #555;
+}
+
+.scene-result {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #e0e0e0;
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: #2d9f6c;
+    line-height: 1.6;
+}
+
+/* ==========================
+   経営者向け価値
+   ========================== */
+
+.section-value {
+    background: #f8f9fa;
+}
+
+.value-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.value-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.value-text strong {
+    font-weight: 700;
+    color: #2d9f6c;
+    font-size: 1.375rem;
+}
+
+.value-list {
+    background: #fff;
+    padding: 40px 50px;
+    border-radius: 15px;
+    margin: 40px 0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.value-list li {
+    font-size: 1.25rem;
+    line-height: 2.2;
+    padding-left: 35px;
+    position: relative;
+}
+
+.value-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #2d9f6c;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.value-conclusion {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    text-align: center;
+    margin: 30px 0;
+    color: #555;
+}
+
+.value-impact {
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: #2d9f6c;
+    margin-top: 40px;
+}
+
+/* ==========================
+   ビジョン
+   ========================== */
+
+.section-vision {
+    background: #1a3a2e;
+    color: #fff;
+}
+
+.section-vision .section-title {
+    color: #fff;
+}
+
+.vision-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.vision-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.vision-goal {
+    font-size: 1.5rem;
+    line-height: 1.9;
+    margin: 40px 0;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.vision-goal strong {
+    color: #fff;
+}
+
+/* ==========================
+   最終CTA
+   ========================== */
+
+.section-final-cta {
+    background: #2d9f6c;
+    color: #fff;
+    padding: 100px 0;
+}
+
+.section-final-cta .section-title {
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.final-cta-text {
+    text-align: center;
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+}
+
+.final-cta-list {
+    max-width: 500px;
+    margin: 30px auto;
+    text-align: left;
+}
+
+.final-cta-list li {
+    font-size: 1.25rem;
+    line-height: 2;
+    padding-left: 35px;
+    position: relative;
+}
+
+.final-cta-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.final-cta-button {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* ==========================
+   Footer
+   ========================== */
+
+.footer {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 40px 0;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-links {
+    margin-bottom: 20px;
+}
+
+.footer-links a {
+    display: inline-block;
+    margin: 0 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9375rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-copyright {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ==========================
+   Responsive Design
+   ========================== */
+
+@media (max-width: 1024px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .subsection-title {
+        font-size: 1.5rem;
+    }
+    
+    .fv-title {
+        font-size: 2.75rem;
+    }
+    
+    .dx-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+    
+    .header {
+        padding: 15px 0;
+    }
+    
+    .header-logo a {
+        font-size: 1.25rem;
+    }
+    
+    .header-nav {
+        gap: 15px;
+    }
+    
+    .header-link {
+        display: none;
+    }
+    
+    .header-cta-btn {
+        padding: 10px 20px;
+        font-size: 0.9375rem;
+    }
+    
+    .section {
+        padding: 60px 0;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .subsection-title {
+        font-size: 1.375rem;
+    }
+    
+    .fv {
+        padding: 60px 0 40px;
+    }
+    
+    .fv .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .form-container {
+        padding: 30px 20px;
+    }
+    
+    .form-title {
+        font-size: 1.5rem;
+    }
+    
+    .fv-title {
+        font-size: 2rem;
+    }
+    
+    .fv-subtitle {
+        font-size: 1.0625rem;
+    }
+    
+    .scene-cards {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .scene-service-name {
+        font-size: 0.9375rem;
+    }
+    
+    .dx-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .comparison-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 20px;
+    }
+    
+    .comparison-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .btn {
+        padding: 16px 30px;
+        font-size: 1rem;
+    }
+    
+    .btn-large {
+        padding: 18px 35px;
+        font-size: 1.0625rem;
+    }
+    
+    .btn-xlarge {
+        padding: 20px 40px;
+        font-size: 1.125rem;
+    }
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="#top">どこでもクリニック</a>
+            </div>
+            <nav class="header-nav">
+                <a href="#automation" class="header-link">自動化できる業務</a>
+                <a href="#dx-features" class="header-link">DX機能</a>
+                <a href="#benefits" class="header-link">福利厚生</a>
+                <a href="#cta-form" class="header-cta-btn">資料請求</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- FV（ファーストビュー） -->
+    <section class="fv" id="top">
+        <div class="container">
+            <div class="fv-content">
+                <h1 class="fv-title">
+                    <span class="fv-title-main">使われる福利厚生。</span>
+                    <span class="fv-title-main">ラクになる健康管理。</span>
+                </h1>
+                <ul class="fv-points">
+                    <li>健診予約・管理・再検査をまとめてDX化</li>
+                    <li>紙・Excelから解放される健康管理</li>
+                    <li>「100%使われる」福利厚生</li>
+                    <li>健康経営を"成果"につなげる</li>
+                </ul>
+            </div>
+            <div class="fv-form">
+                <div class="form-container">
+                    <h3 class="form-title">無料で資料をダウンロード</h3>
+                    <p class="form-subtitle">3分で完了</p>
+                    
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="company" class="form-label">会社名 <span class="required">必須</span></label>
+                            <input type="text" id="company" name="company" class="form-input" required placeholder="株式会社◯◯">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name" class="form-label">氏名 <span class="required">必須</span></label>
+                            <input type="text" id="name" name="name" class="form-input" required placeholder="山田 太郎">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">メールアドレス <span class="required">必須</span></label>
+                            <input type="email" id="email" name="email" class="form-input" required placeholder="example@company.co.jp">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label">電話番号 <span class="required">必須</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required placeholder="03-1234-5678">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">現在の課題 <span class="required">必須</span></label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="challenges" value="健診予約の調整が大変">
+                                    <span>健診予約の調整が大変</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="challenges" value="紙・Excelでの管理が煩雑">
+                                    <span>紙・Excelでの管理が煩雑</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="challenges" value="再検査のフォローが属人化">
+                                    <span>再検査のフォローが属人化</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="challenges" value="ストレスチェックの負担">
+                                    <span>ストレスチェックの負担</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="challenges" value="労基署報告が手間">
+                                    <span>労基署報告が手間</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="challenges" value="その他">
+                                    <span>その他</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-xlarge form-submit">
+                            無料で資料をダウンロードする
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 問題提起（共感） -->
+    <section class="section section-problem" id="solution">
+        <div class="container">
+            <h2 class="section-title">健康管理業務、こんな課題ありませんか？</h2>
+            <ul class="problem-list">
+                <li class="problem-item">健診予約の調整・医療機関とのやり取りに時間を取られる</li>
+                <li class="problem-item">紙やExcelでの結果管理が煩雑で、ミスが怖い</li>
+                <li class="problem-item">再検査対象者の抽出・フォローが属人化している</li>
+                <li class="problem-item">ストレスチェックの準備・集計・報告が毎年大変</li>
+                <li class="problem-item">労基署への報告書作成に毎回時間がかかる</li>
+            </ul>
+            <p class="problem-conclusion">
+                <strong>「この業務、誰かに任せたい…」</strong><br>
+                それが、担当者の本音ではないでしょうか。
+            </p>
+        </div>
+    </section>
+
+    <!-- 解決策（DX+BPO） -->
+    <section class="section section-solution" id="automation">
+        <div class="container">
+            <h2 class="section-title">どこでもクリニックが、<br>健康管理業務を丸ごと効率化します。</h2>
+
+            <h3 class="subsection-title">健康管理業務が、ここまでラクに</h3>
+
+            <div class="comparison-table">
+                <div class="comparison-row">
+                    <div class="comparison-label">健診予約</div>
+                    <div class="comparison-before">手作業で調整</div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-after">自動管理・代行</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-label">結果管理</div>
+                    <div class="comparison-before">紙・Excel</div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-after">クラウド一元化</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-label">再検査対応</div>
+                    <div class="comparison-before">目視で確認</div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-after">自動抽出・勧奨</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-label">ストレスチェック</div>
+                    <div class="comparison-before">別システムで管理</div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-after">同一システムで完結</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-label">労基署報告</div>
+                    <div class="comparison-before">毎年手作業</div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-after">ボタン一つで自動化</div>
+                </div>
+            </div>
+
+            <p class="solution-conclusion">
+                <strong>年間○時間以上の業務削減を実現した事例も！</strong>
+            </p>
+
+            <div class="section-cta">
+                <a href="#cta-form" class="btn btn-primary">資料請求はこちら</a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DX機能 -->
+    <section class="section section-dx" id="dx-features">
+        <div class="container">
+            <h2 class="section-title">健康管理DXの4つの柱</h2>
+            <p class="section-lead">
+                どこでもクリニックは単なるシステム導入ではありません。<br>
+                <strong>業務プロセス全体を再設計し、担当者を解放します。</strong>
+            </p>
+
+            <div class="dx-grid">
+                <div class="dx-card">
+                    <div class="dx-card-number">01</div>
+                    <h4 class="dx-card-title">健診予約の自動化・代行</h4>
+                    <p class="dx-card-desc">従業員への案内、医療機関との調整、日程管理をすべて代行。担当者はシステムで進捗を確認するだけ。</p>
+                </div>
+                <div class="dx-card">
+                    <div class="dx-card-number">02</div>
+                    <h4 class="dx-card-title">健診データの一元管理</h4>
+                    <p class="dx-card-desc">紙・PDF・Excelがバラバラ…を解消。クラウドで一元管理し、いつでもどこでも確認可能。過去データも蓄積。</p>
+                </div>
+                <div class="dx-card">
+                    <div class="dx-card-number">03</div>
+                    <h4 class="dx-card-title">再検査の自動抽出・勧奨</h4>
+                    <p class="dx-card-desc">要再検査者を自動で抽出し、本人へ通知。フォロー状況も可視化され、抜け漏れを防ぎます。</p>
+                </div>
+                <div class="dx-card">
+                    <div class="dx-card-number">04</div>
+                    <h4 class="dx-card-title">ストレスチェック＆報告書</h4>
+                    <p class="dx-card-desc">ストレスチェックの実施・集計から、労基署への報告書作成まで自動化。毎年の負担を大幅削減。</p>
+                </div>
+            </div>
+
+            <p class="solution-image-label">▼健康管理システムで利用できる機能▼</p>
+            <div class="solution-image">
+                <img src="images/system-features.png" alt="健康管理システムの機能一覧" class="features-screenshot">
+            </div>
+
+            <p class="dx-conclusion">
+                <strong>DX × BPO（業務代行）で、<br>担当者は「作業者」から「管理者」へ</strong>
+            </p>
+
+            <div class="section-cta">
+                <a href="#cta-form" class="btn btn-secondary">今すぐ資料請求する</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 経営者向け価値 -->
+    <section class="section section-value" id="data-value">
+        <div class="container">
+            <h2 class="section-title"><span style="font-size: 1.25rem; font-weight: 500; display: block; margin-bottom: 10px;">＼さらに／</span>データ可視化で、戦略的健康経営。</h2>
+            
+            <div class="value-content">
+                <p class="value-text">
+                    経営判断にも利用できる健診データ、<br>
+                    「集めるだけ」で終わっていませんか？
+                </p>
+
+                <h3 class="subsection-title">どこでもクリニックは、健診データを<br>「経営資産」に変えられます</h3>
+
+                <ul class="value-list">
+                    <li>健診データをデジタル化・長期蓄積</li>
+                    <li>ダッシュボードで組織の健康状態を可視化</li>
+                    <li>疾病リスク・傾向分析で先回り対策</li>
+                    <li>健康経営優良法人の認定取得をサポート</li>
+                </ul>
+
+                <p class="value-conclusion">
+                    従業員の健康状態を"見える化"し、<br>
+                    病気リスクを減らし、会社の生産性を高める。
+                </p>
+
+                <p class="value-impact">
+                    <strong>どこでもクリニックは<br>生産性の高い健康な組織づくりをサポートします！</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 利用シーン（福利厚生として） -->
+    <section class="section section-scenes" id="benefits">
+        <div class="container">
+            <h2 class="section-title">従業員が"100%"利用する<br>「福利厚生」サービスもセットに。</h2>
+            <p class="section-lead">
+                業務DXだけではありません。<br>
+                従業員が日常で使える健康サービスも、セットで提供します。
+            </p>
+
+            <div style="text-align: center; margin-bottom: 50px; padding: 40px; background: #f8f9fa; border-radius: 15px;">
+                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: #1a1a1a;">3つのサービスで、日常の"困った"をカバー</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto;">
+                    <div>
+                        <h4 style="font-size: 1.25rem; font-weight: 700; color: #2d9f6c; margin-bottom: 10px;">SUGUME</h4>
+                        <p style="font-size: 0.9375rem; color: #555;">郵送不要・最短5分で分かる検査キット</p>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.25rem; font-weight: 700; color: #2d9f6c; margin-bottom: 10px;">T-PEC</h4>
+                        <p style="font-size: 0.9375rem; color: #555;">24時間365日の健康相談・医療機関案内</p>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.25rem; font-weight: 700; color: #2d9f6c; margin-bottom: 10px;">SOKUYAKU</h4>
+                        <p style="font-size: 0.9375rem; color: #555;">オンライン診療＋お薬配送</p>
+                    </div>
+                </div>
+                <p style="font-size: 1.125rem; font-weight: 700; color: #2d9f6c; margin-top: 30px;">
+                    検査 → 相談 → 診療まで、すべてが一つにつながっています。
+                </p>
+            </div>
+
+            <h3 class="subsection-title" style="margin-top: 60px; margin-bottom: 40px;">例えばこんな時に</h3>
+            
+            <div class="scene-cards">
+                <div class="scene-card">
+                    <div class="scene-number">01</div>
+                    <h3 class="scene-title">朝起きて、喉が痛い…<br>インフル？コロナ？</h3>
+                    <div class="scene-service-name">
+                        <span style="font-size: 1rem; font-weight: 700; color: #2d9f6c;">SUGUME（検査キット）</span>
+                    </div>
+                    <div class="scene-flow">
+                        <div class="scene-step">→ 自宅で検査キット</div>
+                        <div class="scene-step">→ 陽性ならオンライン診療</div>
+                        <div class="scene-step">→ 薬が最短で自宅に届く</div>
+                    </div>
+                    <p class="scene-result">病院に行かず、会社を休まず、すべて完結。</p>
+                </div>
+
+                <div class="scene-card">
+                    <div class="scene-number">02</div>
+                    <h3 class="scene-title">子宮頸がん検査で「リスク高」…<br>「どこの病院に行けばいい？」</h3>
+                    <div class="scene-service-name">
+                        <span style="font-size: 1rem; font-weight: 700; color: #2d9f6c;">T-PEC（24時間健康相談）</span>
+                    </div>
+                    <div class="scene-flow">
+                        <div class="scene-step">→ 24時間健康相談に電話</div>
+                        <div class="scene-step">→ 名医・専門医・地元病院を即案内</div>
+                    </div>
+                    <p class="scene-result">不安な時間を、ひとりで抱え込ませません。</p>
+                </div>
+
+                <div class="scene-card">
+                    <div class="scene-number">03</div>
+                    <h3 class="scene-title">夜中に、子どもや家族が<br>体調不良に…</h3>
+                    <div class="scene-service-name">
+                        <span style="font-size: 1rem; font-weight: 700; color: #2d9f6c;">T-PEC + SOKUYAKU</span>
+                    </div>
+                    <div class="scene-flow">
+                        <div class="scene-step">→ 深夜・休日でも健康相談が可能</div>
+                        <div class="scene-step">→ オンライン診療＋薬配送も対応</div>
+                    </div>
+                    <p class="scene-result">従業員本人だけでなく、<br>家族まで守れる福利厚生です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 最終CTA -->
+    <section class="section section-final-cta" id="cta-form">
+        <div class="container">
+            <h2 class="section-title">まずは、業務削減効果を確認しませんか？</h2>
+            
+            <p class="final-cta-text">資料では、</p>
+            <ul class="final-cta-list">
+                <li>年間どれだけ業務削減できるか（試算）</li>
+                <li>導入パターン別の費用感</li>
+                <li>他社の導入事例・削減実績</li>
+                <li>システム画面のデモ</li>
+            </ul>
+            <p class="final-cta-text">をご確認いただけます。</p>
+
+            <div class="final-cta-button">
+                <a href="#" class="btn btn-xlarge btn-white-final">無料で資料をダウンロードする</a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">会社概要</a>
+                    <a href="#">プライバシーポリシー</a>
+                    <a href="#">お問い合わせ</a>
+                </div>
+                <p class="footer-copyright">© 2024 どこでもクリニック All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+// フォームのバリデーションと送信処理
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // チェックボックスのバリデーション
+    const checkboxes = document.querySelectorAll('input[name="challenges"]:checked');
+    if (checkboxes.length === 0) {
+        alert('現在の課題を少なくとも1つ選択してください。');
+        return;
+    }
+    
+    // フォームデータの取得
+    const formData = new FormData(this);
+    
+    // チェックボックスの値を配列として取得
+    const challenges = [];
+    checkboxes.forEach(checkbox => {
+        challenges.push(checkbox.value);
+    });
+    
+    // データをオブジェクトにまとめる
+    const data = {
+        company: formData.get('company'),
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        challenges: challenges
+    };
+    
+    console.log('フォーム送信データ:', data);
+    
+    // ここで実際の送信処理を実装
+    // 例: fetch('/api/contact', { method: 'POST', body: JSON.stringify(data) })
+    
+    // 送信成功時の処理（仮）
+    alert('資料請求を受け付けました。\nご登録のメールアドレスに資料をお送りします。');
+    this.reset();
+});
+
+// フォームへのスクロール
+document.querySelectorAll('a[href="#cta-form"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const form = document.getElementById('contactForm');
+        if (form) {
+            form.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            // フォームの最初の入力欄にフォーカス
+            setTimeout(() => {
+                document.getElementById('company').focus();
+            }, 500);
+        }
+    });
+});
+
+// スムーススクロール
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// ボタンクリック時のアニメーション
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
+});
+
+// スクロールアニメーション
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const animateElements = document.querySelectorAll(
+        '.scene-card, .dx-card, .comparison-row, .problem-item'
+    );
+    
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+});
+
+// CTAトラッキング
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const buttonText = this.textContent.trim();
+        console.log('CTA clicked:', buttonText);
+    });
+});
+    </script>
+</body>
+</html>
